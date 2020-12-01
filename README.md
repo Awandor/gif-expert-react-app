@@ -135,12 +135,47 @@ que subir la app a un servidor y acceder mediante el protocolo `http` o `https`
 También podemos usar `http-server` y correrlo en localhost
 
 
+# Tests - Pruebas de la app
+
+## Configurar el entorno de pruebas
+
+Enzyme es una utilidad para probar componentes de React, fue desarrollado por AirBnB y ahora es mantenido por Facebook
+
+Documentación: `https://enzymejs.github.io/enzyme/`
+
+A fecha de hoy no hay Enzyme para React 17 oficial, hay una versión no oficial en beta pero que nos va a servir: 
+`https://github.com/wojtekmaj/enzyme-adapter-react-17`
+
+La instalamos > `npm install --save-dev enzyme @wojtekmaj/enzyme-adapter-react-17`
+
+Lo importamos en `setupTests.js` según la documentación
+
+Ahora vamos a trabajar con Snapshot que toma una fotografía de lo que renderiza el componente en forma de datos y que son
+almacenados en una carpeta autogenerada `_snapshots_`
+
+Pero para poder trabajar con esos datos en Jest necesitamos instalar el paquete enzyme-to-json: `https://www.npmjs.com/package/enzyme-to-json`
+
+> `npm install --save-dev enzyme-to-json`
+
+Ahora en `setupTests.js` importamos createSerializer según la documentación
 
 
+## Probar componente GifGridItem
+
+Creamos carpetas `tests/components` y dentro archivo `GifGridItem.test.js`
+
+Probamos debe mostrar <GifGridItem /> correctamente
+
+> `npm run test`
 
 
+## Probar un custom Hook
 
+Necesitamos una librería: `https://react-hooks-testing-library.com/`
 
+> `npm install --save-dev @testing-library/react-hooks`
+
+Importamos renderHook en el test
 
 
 
@@ -241,7 +276,13 @@ En github vamos a Tags > Add release notes
 
 ## Desplegar aplicación en GitHub Pages
 
-Vamos github y creamos un nuevo repositorio, subimos la app
+Tenemos que hacer un pequeño cambio en las rutas de `index.html` del build, en vez de apuntar a la raíz del servidor deben de apuntar
+al directorio que contiene `index.html` simplemente con `./`
+
+Vamos github y creamos un nuevo repositorio, podemos hacer 2 cosas:
+1. Crear un proyecto aparte sólo con el contenido de build y subirlo a github
+2. Renombrar el directorio build a docs, así no será ignorado por `.gitignore` y GitHub Pages lo va a detectar como posible entrada a la app
+y subimos toda la app a github
 
 Ahora vamos acceder al repositorio como si fuera una página web
 
